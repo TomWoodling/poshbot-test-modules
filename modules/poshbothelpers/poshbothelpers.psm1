@@ -173,7 +173,7 @@ param (
     $plugname
     )
 
-cd ~\Documents\WindowsPowerShell\Modules
+cd 'C:\Program Files\WindowsPowerShell\Modules\'
 mkdir $plugname
 cd $plugname
 $params = @{
