@@ -12,7 +12,7 @@ function Get-CatPic {
     )
 
     # Some variables to use
-    $apikey = $env:HUBOT_THE_CAT_API_KEY
+    $apikey = $env:THE_CAT_API_KEY
     $baseurl = 'https://api.thecatapi.com/v1'
     if ($limit -gt 5) {$limit = 5}
     $rest = "/images/search?size=small&mime_types=jpg,png,gif&format=json&has_breeds=false&order=RANDOM&page=0&limit=$limit&api_key=$apikey"
