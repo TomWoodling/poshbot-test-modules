@@ -181,7 +181,7 @@ $params = @{
     RootModule = ".\$plugname.psm1"
     ModuleVersion = "0.1.0"
     Guid = New-Guid
-    RequiredModules = "@('PoshBot')"
+    RequiredModules = "PoshBot"
     Author = "tom"
     Description = "$plugname plugin"
     }
