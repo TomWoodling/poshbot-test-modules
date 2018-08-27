@@ -187,6 +187,6 @@ $params = @{
     }
 
 New-ModuleManifest @params
-
-irm -uri "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1" -OutFile $plugname.psm1
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+irm -uri "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1" -OutFile "$plugname.psm1"
 }
