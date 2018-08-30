@@ -186,6 +186,8 @@ $params = @{
     Description = "$plugname plugin"
     }
 
+Write-Host -ForegroundColor Green url will be "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1"
+
 New-ModuleManifest @params
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 irm -uri "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1" -OutFile "$plugname.psm1"
