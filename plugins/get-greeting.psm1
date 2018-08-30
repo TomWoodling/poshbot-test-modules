@@ -1,7 +1,7 @@
-function get-greeting {
+function Get-Greeting {
     [cmdletbinding()]
 [PoshBot.BotCommand(
-    CommandName = 'get-greeting',
+    CommandName = 'Get-Greeting',
     Aliases = ('hi', 'hello'),
     Permissions = 'read'
 )]
