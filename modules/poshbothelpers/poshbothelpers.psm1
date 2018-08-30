@@ -205,17 +205,17 @@ function Set-BotPlugs {
     $woop > $loc
     foreach ($klip in $klips) {
     $smarp = "  '$klip' = @{
-        '0.1.0' = @{
-          Version = '0.1.0'
-          Name = '$klip'
-          AdhocPermissions = @()
-          ManifestPath = 'C:\Program Files\WindowsPowerShell\Modules\$klip.psm1'
-          CommandPermissions = @{
-            '$klip' = @()
-          }
-          Enabled = `$True
+      '0.1.0' = @{
+        Version = '0.1.0'
+        Name = '$klip'
+        AdhocPermissions = @()
+        ManifestPath = 'C:\Program Files\WindowsPowerShell\Modules\$klip.psm1'
+        CommandPermissions = @{
+          '$klip' = @()
         }
-      }"
+        Enabled = `$True
+      }
+    }"
     $smarp >> $loc
       }
     $goop = "}"
