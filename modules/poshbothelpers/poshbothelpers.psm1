@@ -190,3 +190,32 @@ New-ModuleManifest @params
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 irm -uri "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1" -OutFile "$plugname.psm1"
 }
+
+function Set-BotPlugs {
+    [cmdletbinding()]
+    param(
+        $klips
+        )
+    
+    $loc = '~\.poshbot\plugins.psd1'
+    
+    $woop = "@{"
+    $woop > $loc
+    foreach ($klip in $klips) {
+    $smarp = "  '$klip' = @{
+        '0.1.0' = @{
+          Version = '0.1.0'
+          Name = '$klip'
+          AdhocPermissions = @()
+          ManifestPath = 'C:\Program Files\WindowsPowerShell\Modules\$klip.psm1'
+          CommandPermissions = @{
+            '$klip' = @()
+          }
+          Enabled = `$True
+        }
+      }"
+    $smarp >> $loc
+      }
+    $goop = "}"
+    $goop >> $loc
+    }
