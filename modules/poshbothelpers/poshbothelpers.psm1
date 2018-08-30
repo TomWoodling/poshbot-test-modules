@@ -221,3 +221,13 @@ function Set-BotPlugs {
     $goop = "}"
     $goop >> $loc
     }
+
+function New-BuiltInPlug {
+    [cmdletbinding()]
+    param (
+    $plugname
+    )
+cd 'C:\Program Files\WindowsPowerShell\Modules\PoshBot\0.10.2\Plugins\Builtin\Public\'    
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+irm -uri "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1" -OutFile "$plugname.ps1"
+}
