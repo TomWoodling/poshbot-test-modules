@@ -174,7 +174,7 @@ param (
     )
 
 cd 'C:\Program Files\WindowsPowerShell\Modules\'
-mkdir $plugname
+mkdir $plugname -Force
 cd $plugname
 $params = @{
     Path = ".\$plugname.psd1"
