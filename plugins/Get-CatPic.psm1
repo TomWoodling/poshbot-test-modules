@@ -1,7 +1,7 @@
 function Get-CatPic {
     [CmdletBinding()]
     [PoshBot.BotCommand(
-        CommandName = 'Get-CatPicBot',
+        CommandName = 'Get-CatPic',
         Aliases = ('cat-bomb', 'cat-me','cats'),
         Permissions = 'read'
     )]
