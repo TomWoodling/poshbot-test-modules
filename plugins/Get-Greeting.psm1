@@ -7,7 +7,7 @@ function Get-Greeting {
 )]
 param(
     [parameter(Mandatory)]
-    $Bot
+    $Bot = 'a'
 )
 
 $greetz = @('hi there :bowtie:','good day :sun_with_face:','nice to see you :robot_face:','yo :')
