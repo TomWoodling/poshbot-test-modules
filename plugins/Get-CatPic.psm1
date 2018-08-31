@@ -7,7 +7,6 @@ function Get-CatPic {
     )]
     Param
     (
-        [parameter(Mandatory)]
         $Bot = 'a',
         [Parameter(Position=0)]
 	[Int]$limit = 1

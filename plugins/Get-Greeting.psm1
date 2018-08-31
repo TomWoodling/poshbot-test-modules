@@ -6,7 +6,6 @@ function Get-Greeting {
     Permissions = 'read'
 )]
 param(
-    [parameter(Mandatory)]
     $Bot = 'a'
 )
 
