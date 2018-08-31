@@ -5,7 +5,10 @@ function Get-Greeting {
     Aliases = ('hi', 'hello'),
     Permissions = 'read'
 )]
-param()
+param(
+    [parameter(Mandatory)]
+    $Bot
+)
 
 $greetz = @('hi there :bowtie:','good day :sun_with_face:','nice to see you :robot_face:','yo :')
 
