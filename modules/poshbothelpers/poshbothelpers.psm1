@@ -225,9 +225,10 @@ function Set-BotPlugs {
 function New-BuiltInPlug {
     [cmdletbinding()]
     param (
-    $plugname
-    )
-cd 'C:\Program Files\WindowsPowerShell\Modules\PoshBot\0.10.2\Plugins\Builtin\Public\'    
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-irm -uri "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1" -OutFile "$plugname.ps1"
+        $plugname
+        )
+    $woop = (gci "C:\Program Files\WindowsPowerShell\Modules\PoshBot").name    
+    cd "C:\Program Files\WindowsPowerShell\Modules\PoshBot\$woop\Plugins\Builtin\Public\"
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    irm -uri "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1" -OutFile "$plugname.ps1"
 }
