@@ -20,7 +20,7 @@ function Get-TestCSV {
     $result = @{}
 
     try {
-        $bips = Get-Service | where servicename -like "*CP*"
+        $bips = Get-Service | where servicename -like "$service"
         
         $bips | Export-Csv -NoTypeInformation "$env:BOTROOT\test.csv" -Force
 
