@@ -19,7 +19,7 @@ function Get-PicDesc {
     try
     {
         # Use ErrorAction Stop to make sure we can catch any errors
-        $viewp = Get-DescriptionOfPic -image $pic -ErrorAction Stop
+        $viewp = Get-DescriptionOfPic -image $pic
         
         # Create a string for sending back to slack. * and ` are used to make the output look nice in Slack. Details: http://bit.ly/MHSlackFormat
         $result.output = "I think it is ``$viewp``"
