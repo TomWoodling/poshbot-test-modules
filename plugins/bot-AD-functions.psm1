@@ -11,7 +11,7 @@ function Get-ADGrpMemBot {
 [CmdletBinding()]
 [PoshBot.BotCommand(
     CommandName = 'Get-ADGrpMemBot',
-    Aliases = ('get-members', 'adgrpmems'),
+    Aliases = ('get-members', 'adgrpmems','adgroup'),
     Permissions = 'read'
 )]
 Param
