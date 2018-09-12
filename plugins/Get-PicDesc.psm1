@@ -1,39 +1,28 @@
-function Get-CatPic {
+function Get-PicDesc {
     [CmdletBinding()]
     [PoshBot.BotCommand(
-        CommandName = 'Get-CatPic',
-        Aliases = ('cat-bomb', 'cat-me','cats'),
+        CommandName = 'Get-PicDesc',
+        Aliases = ('describe', 'picdesc'),
         Permissions = 'read'
     )]
     Param
     (
-        $Bot = 'a',
+        $Bot,
         [Parameter(Position=0)]
-	[Int]$limit = 1
+	    [string]$pic
     )
 
-    # Some variables to use
-    $apikey = $env:THE_CAT_API_KEY
-    $baseurl = 'https://api.thecatapi.com/v1'
-    if ($limit -gt 5) {$limit = 5}
-    $rest = "/images/search?size=small&mime_types=jpg,png,gif&format=json&has_breeds=false&order=RANDOM&page=0&limit=$limit&api_key=$apikey"
     # Create a hashtable for the results
     $result = @{}
-    #Headers for api call
-    $headers = @{
-        'Content-Type'="application/json"
-        'x-api-key'="$apikey"
-        }
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
+        
     # Use try/catch block            
     try
     {
         # Use ErrorAction Stop to make sure we can catch any errors
-        $res = irm -uri "$baseurl$rest" -Headers $headers -Method Get -ErrorAction Stop
+        $viewp = Get-DescriptionOfPic -image $pic -ErrorAction Stop
         
         # Create a string for sending back to slack. * and ` are used to make the output look nice in Slack. Details: http://bit.ly/MHSlackFormat
-        $result.output = "$($res.url)"
+        $result.output = "I think it is ``$viewp``"
         
         # Set a successful result
         $result.success = $true
