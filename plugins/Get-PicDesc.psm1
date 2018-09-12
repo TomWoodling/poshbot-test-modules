@@ -30,7 +30,7 @@ function Get-PicDesc {
     catch
     {
         # If this script fails we can assume the service did not exist
-        $result.output = "It didn't work :crying_cat_face:"
+        $result.output = "It didn't work :crying_cat_face: $($_.Exception.message)"
         
         # Set a failed result
         $result.success = $false
