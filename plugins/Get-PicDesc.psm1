@@ -14,7 +14,7 @@ function Get-PicDesc {
 
     # Create a hashtable for the results
     $result = @{}
-        
+    $result.output = "Generic Error"    
     # Use try/catch block            
     try
     {
