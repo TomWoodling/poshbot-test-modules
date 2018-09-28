@@ -23,7 +23,8 @@ function Get-ADDirectRepsBot {
     )
     
     #Get details for snippet
-    $path="C:\ps\ADDR_Results_for_$($User.Replace('.','_')).csv"
+    $path="$env:botroot\csv\"
+    $title="Results_for_$($User.Replace('.','_')).csv"
     
     
     # Create a hashtable for the results
@@ -31,9 +32,9 @@ function Get-ADDirectRepsBot {
     
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
-        Get-ADDirectReports -Identity $user -Recurse | Export-Csv -Path $path -Force -NoTypeInformation
+        Get-ADDirectReports -Identity $user -Recurse | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
         
-        New-PoshBotFileUpload -Path $path -Title "ADDR_Results_for_$($User.Replace('.','_')).csv" -DM
+        New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
     
         # Set a successful result
         $result.success = $true
@@ -48,6 +49,6 @@ function Get-ADDirectRepsBot {
         $result.success = $false
         }
     # Return the result and convert it to json, then attach a snippet with the results
-    Remove-Item -Path $path -Force
+    Remove-Item -Path "$path\$title" -Force
     return $result.output
     }

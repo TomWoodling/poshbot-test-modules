@@ -23,7 +23,8 @@ function Get-ADGrpMemBot {
     )
     
     #Get details for snippet
-    $path="$env:BOTROOT\$($Group.Replace(' ','_')).csv"
+    $path="$env:BOTROOT\csv\"
+    $title = "$($Group.Replace(' ','_')).csv"
     
     
     # Create a hashtable for the results
@@ -31,9 +32,9 @@ function Get-ADGrpMemBot {
     
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
-        Get-ADGroupMember -ErrorAction Stop -Identity "$Group" -Recursive | select name,samaccountname | Export-Csv -Path $path -Force -NoTypeInformation
+        Get-ADGroupMember -ErrorAction Stop -Identity "$Group" -Recursive | select name,samaccountname | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
         
-        New-PoshBotFileUpload -Path $path -Title "$($Group.Replace(' ','_')).csv" -DM
+        New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
         # Create a string for sending back to slack. * and ` are used to make the output look nice in Slack. Details: http://bit.ly/MHSlackFormat
         $result.output = "Request for $Group processed - results sent as a DM :bowtie:"
         #Write-Output "Processing request now..."
@@ -54,6 +55,6 @@ function Get-ADGrpMemBot {
         # Set a failed result
         $result.success = $false
         }
-    Remove-Item -Path $path -Force
+    Remove-Item -Path "$path\$title" -Force
     return $result.output
     }

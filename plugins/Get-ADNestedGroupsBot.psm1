@@ -23,7 +23,8 @@ Param
 )
 
 #Get details for snippet
-$path="C:\ps\$($Group.Replace(' ','_')).csv"
+$path="$env:BOTROOT\csv\"
+$title = "$($Group.Replace(' ','_')).csv"
 
 
 # Create a hashtable for the results
@@ -31,12 +32,12 @@ $result = @{}
 
 try {
     # Use ErrorAction Stop to make sure we can catch any errors
-    Get-ADNestedGroups -GroupName $Group -ErrorAction stop | select name | Export-Csv -Path $path -Force -NoTypeInformation
+    Get-ADNestedGroups -GroupName $Group -ErrorAction stop | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
     
     # Create a string for sending back to slack. * and ` are used to make the output look nice in Slack. Details: http://bit.ly/MHSlackFormat
     $result.output = ":kuribo: Request for $Group processed..."
     #Write-Output "Processing request now..."
-    
+    New-PoshBotFileUpload -Path $path -Title $title -DM
     # Set a successful result
     $result.success = $true
     }
@@ -54,7 +55,7 @@ catch {
     $result.success = $false
     }
 # Return the result and convert it to json, then attach a snippet with the results
-New-PoshBotFileUpload -Path $path -Title "Nested_Groups_In_$($Group.Replace(' ','_')).csv" -DM
-Remove-Item -Path $path -Force
+
+Remove-Item -Path"$path\$title" -Force
 return $result.output
 }

@@ -22,7 +22,8 @@ function Get-ADGroupsForUserBot {
     )
     
     #Get details for snippet
-    $path="C:\ps\Results_for_$($User.Replace('.','_')).csv"
+    $path="$env:botroot\csv\"
+    $title="Results_for_$($User.Replace('.','_')).csv"
     
     
     # Create a hashtable for the results
@@ -31,15 +32,15 @@ function Get-ADGroupsForUserBot {
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
         $groups = Get-UserGroupMembershipRecursive -UserName "$User"
-        $groups.memberof | select name | Export-Csv -Path $path -Force -NoTypeInformation
+        $groups.memberof | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
     
         if ($groups) {
         # Set a successful result
         $result.success = $true
     
         $result.output = "I have sent the results as a DM :bowtie:"        
-        New-PoshBotFileUpload -Path $path -Title "Membership_for_$($User.Replace('.','_')).csv" -DM
-        Remove-Item -Path $path -Force
+        New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
+        Remove-Item -Path "$path\$title" -Force
         }
         else {$result.output = "No results for $user :crying_cat_face:"        }
         }
