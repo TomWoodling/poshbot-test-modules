@@ -40,7 +40,7 @@ function Get-ADGroupsForUserBot {
     
         $result.output = "I have sent the results as a DM :bowtie:"        
         New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
-        Remove-Item -Path "$path\$title" -Force
+        #Remove-Item -Path "$path\$title" -Force
         }
         else {$result.output = "No results for $user :crying_cat_face:"        }
         }
