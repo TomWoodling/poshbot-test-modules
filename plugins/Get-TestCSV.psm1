@@ -24,12 +24,12 @@ function Get-TestCSV {
         
         $bips | Export-Csv -NoTypeInformation "$env:BOTROOT\test.csv" -Force
 
-        New-PoshBotFileUpload -Path "$env:BOTROOT\test.csv" -Title 'testing.csv' -DM; Start-Sleep -Seconds 5; Remove-Item -Path "$env:BOTROOT\test.csv" -Force
+        New-PoshBotFileUpload -Path "$env:BOTROOT\test.csv" -Title 'testing.csv' -DM
 
         # Set a successful result
         $result.success = $true
-
-        $result.output = "I have sent the results as a DM"
+        if (Test-Path -Path "$env:BOTROOT\test.csv") {$result.output = "file is still there"}
+        else {$result.output = "I have sent the results as a DM - file deleted"}
         }
     catch {
 
