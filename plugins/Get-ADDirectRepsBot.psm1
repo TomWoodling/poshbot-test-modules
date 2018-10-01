@@ -49,6 +49,6 @@ function Get-ADDirectRepsBot {
         $result.success = $false
         }
     # Return the result and convert it to json, then attach a snippet with the results
-    Remove-Item -Path "$path\$title" -Force
+
     return $result.output
     }

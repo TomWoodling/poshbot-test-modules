@@ -55,6 +55,5 @@ function Get-ADGrpMemBot {
         # Set a failed result
         $result.success = $false
         }
-    Remove-Item -Path "$path\$title" -Force
     return $result.output
     }
