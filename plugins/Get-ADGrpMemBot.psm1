@@ -32,12 +32,13 @@ function Get-ADGrpMemBot {
     
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
-        Get-ADGroupMember -ErrorAction Stop -Identity "$Group" -Recursive | select name,samaccountname | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
-        
-        New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
-        # Create a string for sending back to slack. * and ` are used to make the output look nice in Slack. Details: http://bit.ly/MHSlackFormat
-        $result.output = "Request for $Group processed - results sent as a DM :bowtie:"
-        #Write-Output "Processing request now..."
+        $membs = Get-ADGroupMember -ErrorAction Stop -Identity "$Group" -Recursive | select name,samaccountname
+        if ($membs) { 
+            $membs | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
+            New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
+            $result.output = "Request for $Group processed - results sent as a DM :bowtie:"
+            }
+        else {$result.output = "No results returned :bowtie:"}
         
         # Set a successful result
         $result.success = $true

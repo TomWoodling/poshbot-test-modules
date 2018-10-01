@@ -32,14 +32,16 @@ function Get-ADDirectRepsBot {
     
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
-        Get-ADDirectReports -Identity $user -Recurse | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
-        
-        New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
-    
+        $reps = Get-ADDirectReports -Identity $user -Recurse
+        if ($reps) {$reps | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
+            New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
+            $result.output = "I have sent the results as a DM :bowtie:"
+            }
+        else {$result.output = "No results found :bowtie:"}
         # Set a successful result
         $result.success = $true
     
-        $result.output = "I have sent the results as a DM :bowtie:"
+        
         }
     catch {
         # If this script fails we can try to match the name instead to see if we get any suggestions
