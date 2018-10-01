@@ -24,7 +24,7 @@ function Get-TestCSV {
         
         $bips | Export-Csv -NoTypeInformation "$env:BOTROOT\test.csv" -Force
 
-        New-PoshBotFileUpload -Path "$env:BOTROOT\test.csv" -Title 'testing.csv' -DM
+        New-PoshBotFileUpload -Path "$env:BOTROOT\test.csv" -Title 'testing.csv' -DM; Remove-Item -Path "$env:BOTROOT\test.csv" -Force
 
         # Set a successful result
         $result.success = $true
@@ -41,7 +41,7 @@ function Get-TestCSV {
         }
     # Return the result and convert it to json, then attach a snippet with the results
 
-    Remove-Item -Path "$env:BOTROOT\test.csv" -Force
+    
     return $result.output
 
 }
