@@ -32,14 +32,13 @@ $result = @{}
 
 try {
     # Use ErrorAction Stop to make sure we can catch any errors
-    Get-ADNestedGroups -GroupName $Group -ErrorAction stop | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
-    
-    # Create a string for sending back to slack. * and ` are used to make the output look nice in Slack. Details: http://bit.ly/MHSlackFormat
-    $result.output = ":kuribo: Request for $Group processed..."
-    #Write-Output "Processing request now..."
-    New-PoshBotFileUpload -Path $path -Title $title -DM
-    # Set a successful result
-    $result.success = $true
+    $groups = Get-ADNestedGroups -GroupName $Group -ErrorAction stop | select name 
+    if ($groups) {
+        $groups | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
+        $result.output = ":kuribo: Request for $Group processed..."
+        New-PoshBotFileUpload -Path $path -Title $title -DM
+        }
+    else {$result.output = "No nested groups found :bowtie:"}
     }
 catch {
     # If this script fails we can try to match the name instead to see if we get any suggestions
