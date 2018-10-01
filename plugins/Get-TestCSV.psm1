@@ -41,7 +41,7 @@ function Get-TestCSV {
         }
     # Return the result and convert it to json, then attach a snippet with the results
 
-
+    Remove-Item -Path "$env:BOTROOT\test.csv" -Force
     return $result.output
 
 }
