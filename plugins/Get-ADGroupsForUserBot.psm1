@@ -25,7 +25,10 @@ function Get-ADGroupsForUserBot {
     $path="$env:botroot\csv\"
     $title="Results_for_$($User.Replace('.','_')).csv"
     
-    try {Get-ADUser -Identity $user}
+    # Create a hashtable for the results
+    $result = @{}
+
+    try {Get-ADUser -Identity $user > $null}
     catch {
         $clib = ':cold_sweat:'
         $result.output = "I cannot get details for $User $clib"
@@ -33,8 +36,7 @@ function Get-ADGroupsForUserBot {
         return $result.output
     }
     
-    # Create a hashtable for the results
-    $result = @{}
+
     
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
