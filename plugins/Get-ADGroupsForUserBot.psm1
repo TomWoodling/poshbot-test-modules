@@ -67,6 +67,6 @@ function Get-ADGroupsForUserBot {
     else {
         $result.success = $false
         $result.output = "No results for $user :crying_cat_face:"        }
-    }
+    
     return $result.output
     }
