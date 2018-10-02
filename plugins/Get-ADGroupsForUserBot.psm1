@@ -26,7 +26,7 @@ function Get-ADGroupsForUserBot {
     $title="Results_for_$($User.Replace('.','_')).csv"
     
     # Create a hashtable for the results
-    
+    $result = @{}
     $ErrorActionPreference = 'silentlycontinue'
     try {Get-ADUser -Identity $user > $null
         $valid = $true
@@ -44,9 +44,9 @@ function Get-ADGroupsForUserBot {
         if ($groups.memberof) {
         # Set a successful result
         $result.success = $true
-        $groups.memberof | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
+        #$groups.memberof | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
         $result.output = "I have sent the results as a DM :bowtie:"        
-        New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
+       # New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
         #Remove-Item -Path "$path\$title" -Force
         }
         else {
@@ -58,6 +58,6 @@ function Get-ADGroupsForUserBot {
     else {
         $result.success = $false
         $result.output = "No results for $user :crying_cat_face:"        }
-        $result = @{}
+
     return $result.output
     }
