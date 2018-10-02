@@ -37,7 +37,7 @@ function Get-ADGroupsForUserBot {
     
 
     if ($valid -eq $true) {
-    try {
+   
         # Use ErrorAction Stop to make sure we can catch any errors
         $groups = Get-UserGroupMembershipRecursive -UserName "$User"
         $groups.memberof | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
@@ -53,15 +53,7 @@ function Get-ADGroupsForUserBot {
         else {
             $result.success = $false
             $result.output = "No results for $user :crying_cat_face:"        }
-        }
-    catch {
-    
-        $clib = ':cold_sweat:'
-        $result.output = "I cannot get details for $User $clib"
         
-        # Set a failed result
-        $result.success = $false
-        }
     # Return the result and convert it to json, then attach a snippet with the results
     }
     else {
