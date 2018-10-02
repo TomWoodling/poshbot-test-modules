@@ -35,7 +35,7 @@ function Get-ADGroupsForUserBot {
         $valid = $false
         }
     
-
+    write-output "$valid is the verdict"
     if ($valid -eq $true) {
    
         # Use ErrorAction Stop to make sure we can catch any errors
