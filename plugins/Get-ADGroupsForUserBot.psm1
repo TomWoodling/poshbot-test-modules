@@ -34,7 +34,7 @@ function Get-ADGroupsForUserBot {
         $groups = Get-UserGroupMembershipRecursive -UserName "$User"
         $groups.memberof | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
     
-        if ($groups) {
+        if ($groups.memberof) {
         # Set a successful result
         $result.success = $true
     
