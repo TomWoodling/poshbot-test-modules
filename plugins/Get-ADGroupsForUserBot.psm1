@@ -25,6 +25,13 @@ function Get-ADGroupsForUserBot {
     $path="$env:botroot\csv\"
     $title="Results_for_$($User.Replace('.','_')).csv"
     
+    try {Get-ADUser -Identity $user}
+    catch {
+        $clib = ':cold_sweat:'
+        $result.output = "I cannot get details for $User $clib"
+        $result.success = $false
+        return $result.output
+    }
     
     # Create a hashtable for the results
     $result = @{}
@@ -42,7 +49,9 @@ function Get-ADGroupsForUserBot {
         New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
         #Remove-Item -Path "$path\$title" -Force
         }
-        else {$result.output = "No results for $user :crying_cat_face:"        }
+        else {
+            $result.success = $false
+            $result.output = "No results for $user :crying_cat_face:"        }
         }
     catch {
     
