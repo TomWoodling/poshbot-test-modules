@@ -26,7 +26,7 @@ function Get-ADDirectRepsBot {
     $path="$env:botroot\csv\"
     $title="Results_for_$($User.Replace('.','_')).csv"
     
-    
+    $go = Get-ADUser -Identity $user
     # Create a hashtable for the results
     $result = @{}
     

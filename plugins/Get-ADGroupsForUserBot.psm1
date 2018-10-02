@@ -27,32 +27,35 @@ function Get-ADGroupsForUserBot {
     
     # Create a hashtable for the results
     $result = @{}
-    
-    $valid = $true
-  
-    write-output "$valid is the verdict"
-    if ($valid -eq $true) {
-   
+
+    $go = Get-ADUser -Identity $user
+
+    try {
         # Use ErrorAction Stop to make sure we can catch any errors
-        #$groups = Get-UserGroupMembershipRecursive -UserName "$User"
-    $groups = get-aduser -identity $user
-        if ($groups) {
+        $groups = Get-UserGroupMembershipRecursive -UserName "$User"
+        $groups.memberof | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
+    
+        if ($groups.memberof) {
         # Set a successful result
         $result.success = $true
-        #$groups.memberof | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
+    
         $result.output = "I have sent the results as a DM :bowtie:"        
-       # New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
+        New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
         #Remove-Item -Path "$path\$title" -Force
         }
         else {
             $result.success = $false
             $result.output = "No results for $user :crying_cat_face:"        }
+        }
+    catch {
+    
+        $clib = ':cold_sweat:'
+        $result.output = "I cannot get details for $User $clib"
         
-    # Return the result and convert it to json, then attach a snippet with the results
-    }
-    else {
+        # Set a failed result
         $result.success = $false
-        $result.output = "No results for $user :crying_cat_face:"        }
+        }
+    # Return the result and convert it to json, then attach a snippet with the results
 
     return $result.output
     }
