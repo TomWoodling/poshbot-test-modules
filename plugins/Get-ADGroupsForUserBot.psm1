@@ -27,14 +27,8 @@ function Get-ADGroupsForUserBot {
     
     # Create a hashtable for the results
     $result = @{}
-    $ErrorActionPreference = 'silentlycontinue'
-    try {Get-ADUser -Identity $user > $null
-        $valid = $true
-        }
-    catch {
-        $valid = $false
-        }
-    
+
+  
     write-output "$valid is the verdict"
     if ($valid -eq $true) {
    
