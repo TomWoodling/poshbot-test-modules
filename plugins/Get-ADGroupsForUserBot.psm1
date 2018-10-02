@@ -26,7 +26,7 @@ function Get-ADGroupsForUserBot {
     $title="Results_for_$($User.Replace('.','_')).csv"
     
     # Create a hashtable for the results
-    $result = @{}
+    
     $ErrorActionPreference = 'silentlycontinue'
     try {Get-ADUser -Identity $user > $null
         $valid = $true
@@ -58,6 +58,6 @@ function Get-ADGroupsForUserBot {
     else {
         $result.success = $false
         $result.output = "No results for $user :crying_cat_face:"        }
-    
+        $result = @{}
     return $result.output
     }
