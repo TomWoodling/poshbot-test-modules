@@ -40,12 +40,11 @@ function Get-ADGroupsForUserBot {
    
         # Use ErrorAction Stop to make sure we can catch any errors
         $groups = Get-UserGroupMembershipRecursive -UserName "$User"
-        $groups.memberof | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
     
         if ($groups.memberof) {
         # Set a successful result
         $result.success = $true
-    
+        $groups.memberof | select name | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
         $result.output = "I have sent the results as a DM :bowtie:"        
         New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
         #Remove-Item -Path "$path\$title" -Force
