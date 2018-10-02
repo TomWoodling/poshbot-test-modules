@@ -34,6 +34,7 @@ function Get-ADGroupsForUserBot {
         $result.output = "I cannot get details for $User $clib"
         $result.success = $false
         return $result.output
+        exit 0
     }
     
 
