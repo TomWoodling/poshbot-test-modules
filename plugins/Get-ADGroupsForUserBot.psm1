@@ -28,17 +28,15 @@ function Get-ADGroupsForUserBot {
     # Create a hashtable for the results
     $result = @{}
 
-    try {Get-ADUser -Identity $user > $null}
+    try {Get-ADUser -Identity $user > $null
+        $valid = $true
+        }
     catch {
-        $clib = ':cold_sweat:'
-        $result.output = "I cannot get details for $User $clib"
-        $result.success = $false
-        return $result.output
-        exit 0
-    }
+        $valid = $false
+        }
     
 
-    
+    if ($valid -eq $true) {
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
         $groups = Get-UserGroupMembershipRecursive -UserName "$User"
@@ -65,7 +63,10 @@ function Get-ADGroupsForUserBot {
         $result.success = $false
         }
     # Return the result and convert it to json, then attach a snippet with the results
-    
-    
+    }
+    else {
+        $result.success = $false
+        $result.output = "No results for $user :crying_cat_face:"        }
+    }
     return $result.output
     }
