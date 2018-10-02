@@ -27,7 +27,8 @@ function Get-ADGroupsForUserBot {
     
     # Create a hashtable for the results
     $result = @{}
-
+    
+    $valid = $true
   
     write-output "$valid is the verdict"
     if ($valid -eq $true) {
