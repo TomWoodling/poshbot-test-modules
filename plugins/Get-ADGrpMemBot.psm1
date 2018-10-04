@@ -19,20 +19,22 @@ function Get-ADGrpMemBot {
         $bot,
         # Name of the Service
         [Parameter(Mandatory=$true, Position=0)]
-        $Group
+        [string]$Group
     )
     
     #Get details for snippet
     $path="$env:BOTROOT\csv\"
     $title = "$($Group.Replace(' ','_')).csv"
-    
+    $group = @{}
+    $group.type = "group"
+    $group.name = $Group
     
     # Create a hashtable for the results
     $result = @{}
     
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
-        $membs = Get-ADGroupMember -ErrorAction Stop -Identity $Group -Recursive | select name,samaccountname
+        $membs = Get-ADGroupMember -ErrorAction Stop -Identity "$($Group.name)" -Recursive | select name,samaccountname
         if ($membs) { 
             $membs | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
             New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
