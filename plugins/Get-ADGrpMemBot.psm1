@@ -28,6 +28,7 @@ function Get-ADGrpMemBot {
     $greep = @{}
     $greep.type = "group"
     $greep.name = $Group
+    Write-Output "$($greep.name) is $group"
     
     # Create a hashtable for the results
     $result = @{}
