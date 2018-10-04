@@ -27,7 +27,7 @@ function Get-ADGrpMemBot {
     $title = "$($Group.Replace(' ','_')).csv"
     $greep = @{}
     $greep.type = "group"
-    $greep.name = $Group
+    $greep.name = "'"+$Group+"'"
     Write-Output "$($greep.name) is $group"
     
     # Create a hashtable for the results
