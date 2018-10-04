@@ -32,7 +32,7 @@ $result = @{}
 
 try {
     # Use ErrorAction Stop to make sure we can catch any errors
-    $gurps = Get-ADNestedGroups -GroupName $Group -ErrorAction stop | select name 
+    $gurps = Get-ADNestedGroups -GroupName $Group.trim("'") -ErrorAction stop | select name 
     if ($gurps) {
         $gurps | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
         $result.output = ":kuribo: Request for $Group processed..."
