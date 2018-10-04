@@ -32,7 +32,7 @@ function Get-ADGrpMemBot {
     
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
-        $membs = Get-ADGroupMember -ErrorAction Stop -Identity "$Group" -Recursive | select name,samaccountname
+        $membs = Get-ADGroupMember -ErrorAction Stop -Identity $Group -Recursive | select name,samaccountname
         if ($membs) { 
             $membs | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
             New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
