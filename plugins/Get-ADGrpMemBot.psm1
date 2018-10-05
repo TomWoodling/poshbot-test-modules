@@ -56,19 +56,19 @@ Add-Type @"
 
 if ($birp -match ' ') {
 $scurp = @"
-$membs = Get-ADGroupMember -ErrorAction Stop -Identity '$birp' -Recursive | select name,samaccountname
+Get-ADGroupMember -ErrorAction Stop -Identity '$birp' -Recursive | select name,samaccountname
 "@
 }
 else {
 $scurp = @"
-$membs = Get-ADGroupMember -ErrorAction Stop -Identity $birp -Recursive | select name,samaccountname
+Get-ADGroupMember -ErrorAction Stop -Identity $birp -Recursive | select name,samaccountname
 "@
 }
 $scump = [Scriptblock]::Create($scurp)
 
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
-        $membs = Invoke-Command -ScriptBlock {$scump}
+        $membs = Invoke-Command -ScriptBlock $scump
         if ($membs) { 
             $membs | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
             New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
