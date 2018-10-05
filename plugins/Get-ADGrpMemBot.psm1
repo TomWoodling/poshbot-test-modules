@@ -21,7 +21,30 @@ function Get-ADGrpMemBot {
         [Parameter(Mandatory=$true, Position=0)]
         [string]$Group
     )
-    
+Add-Type @"
+    public class DynParamQuotedString {
+
+        public DynParamQuotedString(string quotedString) : this(quotedString, "'") {}
+        public DynParamQuotedString(string quotedString, string quoteCharacter) {
+            OriginalString = quotedString;
+            _quoteCharacter = quoteCharacter;
+        }
+
+        public string OriginalString { get; set; }
+        string _quoteCharacter;
+
+        public override string ToString() {
+            if (OriginalString.Contains(" ")) {
+                return string.Format("{1}{0}{1}", OriginalString, _quoteCharacter);
+            }
+            else {
+                return OriginalString;
+            }
+        }
+    }
+"@
+
+
     #Get details for snippet
     $path="$env:BOTROOT\csv\"
     $title = "$($Group.Replace(' ','_')).csv"
