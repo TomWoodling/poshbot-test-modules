@@ -56,7 +56,7 @@ Add-Type @"
 
 if ($birp -match ' ') {
 $scurp = @"
-Get-ADGroupMember -ErrorAction Stop -Identity '$birp' -Recursive | select name,samaccountname
+Get-ADGroupMember -ErrorAction Stop -Identity `$birp -Recursive | select name,samaccountname
 "@
 }
 else {
