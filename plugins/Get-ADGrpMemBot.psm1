@@ -66,7 +66,9 @@ Get-ADGroupMember -ErrorAction Stop -Identity $birp -Recursive | select name,sam
 }
 $scump = [Scriptblock]::Create($scurp)
 
-    try {
+return $scump
+
+  <#  try {
         # Use ErrorAction Stop to make sure we can catch any errors
         $membs = Invoke-Command -ScriptBlock $scump
         if ($membs) { 
@@ -94,3 +96,5 @@ $scump = [Scriptblock]::Create($scurp)
         }
     return $result.output
     }
+
+    #>
