@@ -54,44 +54,6 @@ Add-Type @"
     
     $birp = noquotez -bloop $group
 
-if ($birp -match ' ') {
-$scurp = @"
-Get-ADGroupMember -ErrorAction Stop -Identity `$birp -Recursive | select name,samaccountname
-"@
-}
-else {
-$scurp = @"
-Get-ADGroupMember -ErrorAction Stop -Identity $birp -Recursive | select name,samaccountname
-"@
-}
-$scump = [Scriptblock]::Create($scurp)
 
-try {
-        # Use ErrorAction Stop to make sure we can catch any errors
-        $membs = Invoke-Command -Command $scump
-        if ($membs) { 
-            $membs | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
-            New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
-            $result.output = "Request for $Group processed - results sent as a DM :bowtie:"
-            }
-        else {$result.output = "No results returned :bowtie:"}
-        
-        # Set a successful result
-        $result.success = $true
-        }
-    catch {
-        # If this script fails we can try to match the name instead to see if we get any suggestions
-        $cloo = Get-ADGroup -Filter * -Properties name,samaccountname | where name -Match $group | select -ExpandProperty name
-        if($cloo.Count -ge 1) {
-            $clee = [system.string]::join("; ", $cloo)
-            $clib = ", you could try $clee"
-            }
-        else {$clib = ':cold_sweat:'}
-        $result.output = "Group $Group does not exist$clib"
-        
-        # Set a failed result
-        $result.success = $false
-        }
-    return $result.output
-  
+    return "$birp"
 }
