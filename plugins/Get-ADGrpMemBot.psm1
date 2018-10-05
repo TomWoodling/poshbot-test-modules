@@ -52,15 +52,23 @@ Add-Type @"
     # Create a hashtable for the results
     $result = @{}
     
-    $gwip = noquotez -bloop $group
+    $birp = noquotez -bloop $group
 
-    $gulp = "get-adgroup -identity $gwip"
-
-    $goop = Invoke-Command -ScriptBlock {$gulp}
+if ($birp -match ' ') {
+$scurp = @"
+$membs = Get-ADGroupMember -ErrorAction Stop -Identity '$birp' -Recursive | select name,samaccountname
+"@
+}
+else {
+$scurp = @"
+$membs = Get-ADGroupMember -ErrorAction Stop -Identity $birp -Recursive | select name,samaccountname
+"@
+}
+$scump = [Scriptblock]::Create($scurp)
 
     try {
         # Use ErrorAction Stop to make sure we can catch any errors
-        $membs = Get-ADGroupMember -ErrorAction Stop -Identity $goop.samaccountname -Recursive | select name,samaccountname
+        $membs = Invoke-Command -ScriptBlock {$scump}
         if ($membs) { 
             $membs | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
             New-PoshBotFileUpload -Path "$path\$title" -Title $title -DM
