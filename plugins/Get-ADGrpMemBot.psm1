@@ -68,6 +68,7 @@ $scump = [Scriptblock]::Create($scurp)
 
 return $scump
 
+}
   <#  try {
         # Use ErrorAction Stop to make sure we can catch any errors
         $membs = Invoke-Command -ScriptBlock $scump
@@ -95,6 +96,7 @@ return $scump
         $result.success = $false
         }
     return $result.output
-    }
+  
+}
 
-    #>
+    #>  
