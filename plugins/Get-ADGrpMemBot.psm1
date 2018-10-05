@@ -55,5 +55,5 @@ Add-Type @"
     $birp = noquotez -bloop $group
 
 
-    return "$birp"
+    Get-ADGroup -Identity "$birp"
 }
