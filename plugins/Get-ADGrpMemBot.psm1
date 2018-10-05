@@ -55,5 +55,5 @@ Add-Type @"
     $birp = noquotez -bloop $group
 
 
-    Get-ADGroup -Identity $birp.replace.("'","")
+    Get-ADGroup -Filter {name -eq $birp}
 }
