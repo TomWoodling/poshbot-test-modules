@@ -232,3 +232,54 @@ function New-BuiltInPlug {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     irm -uri "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1" -OutFile "$plugname.ps1"
 }
+
+function Remove-Quotes {
+    [CmdletBinding()]
+    param(
+    )
+
+    dynamicparam {
+        $ParamDictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
+ 
+        $Attributes = New-Object System.Collections.ObjectModel.Collection[System.Attribute]
+        $Attributes.Add( (New-Object System.Management.Automation.ParameterAttribute) )
+
+        # Convert each object into a DynParamQuotedString:
+        $Attributes.Add( (New-Object System.Management.Automation.ValidateSetAttribute($__DynamicParamValidateSet | % { [DynParamQuotedString] $_.ToString() })) )
+
+        $ParamDictionary.$__DynamicParamName = New-Object System.Management.Automation.RuntimeDefinedParameter (
+            $__DynamicParamName,
+            [DynParamQuotedString],  # Notice the type here
+            $Attributes
+        )
+
+        return $ParamDictionary
+    } 
+
+    process {
+        
+        $ParamValue = $null
+        if ($PSBoundParameters.ContainsKey($__DynamicParamName)) {
+            # Get the original string back:
+            $ParamValue = $PSBoundParameters.$__DynamicParamName.OriginalString
+        }
+
+        "$ParamValue"
+    }
+}
+
+function noquotez {
+    [CmdletBinding()]
+    param(
+        [string]$bloop
+    )
+
+    $__DynamicParamName = "DynamicParam"
+    $__DynamicParamValidateSet = @(
+    "A string with spaces"
+    "Another string with spaces"
+    "StringWithoutSpaces"
+    $bloop
+)
+    Remove-Quotes -DynamicParam $bloop
+}
