@@ -47,8 +47,8 @@ Add-Type @"
 
     #Get details for snippet
     $path="$env:BOTROOT\csv\"
-    $title = "$($Group.Replace(' ','_')).ps1"
-    $title = $title.replace('&','-')
+    $mitle = $Group.Replace(' ','_')
+    $title = "$($mitle.replace('&','-')).ps1"
 
     # Create a hashtable for the results
     $result = @{}
