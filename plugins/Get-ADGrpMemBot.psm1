@@ -57,9 +57,24 @@ Add-Type @"
 
     $gwipe = $($birp.replace('&amp;','&'))
 
-    $gwurp = "Get-ADGroup -Filter {name -eq `"$gwipe`"}" | Out-File "$path\$title" -Force
 
-    $gwoop = Invoke-Expression -Command "$path$title"
-
-    return $gwoop
+    try {
+        # Use ErrorAction Stop to make sure we can catch any errors
+        $gwurp = "Get-ADGroupMember -Identity `"$gwipe`" -Recursive | select name,samaccountname" 
+        $gwurp | Out-File "$path\$title" -Force
+        $gwoops = Invoke-Expression -Command "$path$title"
+        $outle = "$($mitle.replace('&amp;','-')).csv"
+        $gwoops | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
+        New-PoshBotFileUpload -Path "$path\$outle" -Title $title -DM
+        $result.output = "Request for $gwipe processed - results sent as a DM :bowtie:"
+        # Set a successful result
+        $result.success = $true
+        }
+    catch {
+        $result.output = "Group $gwipe does not exist :cold_sweat:"        
+        # Set a failed result
+        $result.success = $false
+        }
+    return $result.output
+    Remove-Item -Force -Path "$path$title"
 }
