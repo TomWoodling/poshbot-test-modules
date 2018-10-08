@@ -59,7 +59,6 @@ Add-Type @"
 
 
     try {
-        # Use ErrorAction Stop to make sure we can catch any errors
         $gwurp = "Get-ADGroupMember -Identity `"$gwipe`" -Recursive | select name,samaccountname" 
         $gwurp | Out-File "$path\$title" -Force
         $gwoops = Invoke-Expression -Command "$path$title"
