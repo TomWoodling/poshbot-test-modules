@@ -48,6 +48,7 @@ Add-Type @"
     #Get details for snippet
     $path="$env:BOTROOT\csv\"
     $title = "$($Group.Replace(' ','_')).ps1"
+    $title = $title.replace('&','-')
 
     # Create a hashtable for the results
     $result = @{}
@@ -56,9 +57,9 @@ Add-Type @"
 
     $gwipe = $($Group.replace('$amp;','&'))
 
-    $gwurp = "Get-ADGroup -Filter {name -eq `'$gwipe`'}" | Out-File "$path\$title"
+    $gwurp = "Get-ADGroup -Filter {name -eq `"'$gwipe'`"}" | Out-File "$path\$title" -Force
 
-    $gwoop = Invoke-Expression -Command "$path\$title"
+    $gwoop = Invoke-Expression -Command "$path$title"
 
     return $gwoop
 }
