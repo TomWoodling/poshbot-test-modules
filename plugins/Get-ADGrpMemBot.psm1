@@ -65,7 +65,7 @@ Add-Type @"
         $gwoops = Invoke-Expression -Command "$path$title"
         $outle = "$($mitle.replace('&amp;','-')).csv"
         $gwoops | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
-        New-PoshBotFileUpload -Path "$path\$outle" -Title $title -DM
+        New-PoshBotFileUpload -Path "$path\$outle" -Title $outle -DM
         $result.output = "Request for $gwipe processed - results sent as a DM :bowtie:"
         # Set a successful result
         $result.success = $true
