@@ -47,7 +47,7 @@ Add-Type @"
 
     #Get details for snippet
     $path="$env:BOTROOT\csv\"
-    $title = "$($Group.Replace(' ','_')).csv"
+    $title = "$($Group.Replace(' ','_')).ps1"
 
     # Create a hashtable for the results
     $result = @{}
@@ -55,5 +55,9 @@ Add-Type @"
     $birp = noquotez -bloop $group
 
 
-    Get-ADGroup -Filter {name -eq $Group}
+    $gwurp = "Get-ADGroup -Filter {name -eq $Group}" | Out-File "$path\$title"
+
+    $gwoop = .\$path\$title
+
+    return $gwoop
 }
