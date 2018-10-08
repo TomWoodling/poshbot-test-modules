@@ -57,7 +57,7 @@ Add-Type @"
 
     $gwurp = "Get-ADGroup -Filter {name -eq $Group}" | Out-File "$path\$title"
 
-    $gwoop = .\$path\$title
+    $gwoop = Invoke-Expression -Command "$path\$title"
 
     return $gwoop
 }
