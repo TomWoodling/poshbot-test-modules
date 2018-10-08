@@ -21,40 +21,60 @@ Param
     [Parameter(Mandatory=$true, Position=0)]
     [string]$Group
 )
+Add-Type @"
+    public class DynParamQuotedString {
+
+        public DynParamQuotedString(string quotedString) : this(quotedString, "'") {}
+        public DynParamQuotedString(string quotedString, string quoteCharacter) {
+            OriginalString = quotedString;
+            _quoteCharacter = quoteCharacter;
+        }
+
+        public string OriginalString { get; set; }
+        string _quoteCharacter;
+
+        public override string ToString() {
+            if (OriginalString.Contains(" ")) {
+                return string.Format("{1}{0}{1}", OriginalString, _quoteCharacter);
+            }
+            else {
+                return OriginalString;
+            }
+        }
+    }
+"@
+
 
 #Get details for snippet
 $path="$env:BOTROOT\csv\"
-$title = "$($Group.Replace(' ','_')).csv"
-
+$mitle = $Group.Replace(' ','_')
+$title = "$($mitle.replace('&amp;','-')).ps1"
 
 # Create a hashtable for the results
 $result = @{}
 
+$birp = noquotez -bloop $group
+
+$gwipe = $($birp.replace('&amp;','&'))
+
 try {
     # Use ErrorAction Stop to make sure we can catch any errors
-    $gurps = Get-ADNestedGroups -GroupName $Group.trim("'") -ErrorAction stop | select name 
-    if ($gurps) {
-        $gurps | Export-Csv -Path "$path\$title" -Force -NoTypeInformation
-        $result.output = ":kuribo: Request for $Group processed..."
-        New-PoshBotFileUpload -Path $path -Title $title -DM
-        }
-    else {$result.output = "No nested groups found :bowtie:"}
+    $gurps = "Get-ADNestedGroups -GroupName `"$gwipe`" -ErrorAction stop | select name"
+    $gurps | Out-File "$path\$title" -Force
+    $gwoops = Invoke-Expression -Command "$path$title"
+    $outle = "$($mitle.replace('&amp;','-')).csv"
+    $gwoops | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
+    New-PoshBotFileUpload -Path "$path\$outle" -Title $outle -DM
+    $result.output = "Request for $gwipe processed - results sent as a DM :bowtie:"
+    # Set a successful result
+    $result.success = $true
     }
 catch {
-    # If this script fails we can try to match the name instead to see if we get any suggestions
-    $cloo = Get-ADGroup -Filter * -Properties name,samaccountname | where name -Match $group | select -ExpandProperty name
-    if($cloo.Count -ge 1) {
-        $clee = [system.string]::join("; ", $cloo)
-        $clib = ", you could try $clee"
-        }
-    else {$clib = ':mariofail:'}
-    $result.output = "Group $Group does not exist$clib"
-    
+    $result.output = "Group $gwipe does not exist :cold_sweat:"        
     # Set a failed result
     $result.success = $false
     }
 # Return the result and convert it to json, then attach a snippet with the results
-
-
-return $result.output
+    return $result.output
+    Remove-Item -Force -Path "$path$title"
 }
