@@ -55,7 +55,7 @@ Add-Type @"
     
     $birp = noquotez -bloop $group
 
-    $gwipe = $($birp.replace('$amp;','&'))
+    $gwipe = $($birp.replace('&amp;','&'))
 
     $gwurp = "Get-ADGroup -Filter {name -eq `"$gwipe`"}" | Out-File "$path\$title" -Force
 
