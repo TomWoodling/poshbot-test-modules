@@ -1,22 +1,39 @@
-function Get-CatPic {
+function Get-CatBomb {
     [CmdletBinding()]
     [PoshBot.BotCommand(
-        CommandName = 'Get-CatPic',
-        Aliases = ('cat-me','cats'),
+        CommandName = 'Get-CatBomb',
+        Aliases = ('cat-bomb'),
         Permissions = 'read'
     )]
     Param
     (
         $Bot = 'a',
         [Parameter(Position=0)]
-	[Int]$limit = 1
+        [ValidateSet('boxes','caturday','clothes','dream','funny','hats','kittens','sinks','space','sunglasses','ties','all')]
+	    [string]$category = 'all'
     )
 
     # Some variables to use
     $apikey = $env:THE_CAT_API_KEY
     $baseurl = 'https://api.thecatapi.com/v1'
-    if ($limit -gt 5) {$limit = 5}
-    $rest = "/images/search?size=small&mime_types=jpg,png,gif&format=json&has_breeds=false&order=RANDOM&page=0&limit=$limit&api_key=$apikey"
+    $limit = 5
+    if ($category -eq 'all') {$skit='5,6,15,9,3,1,10,14,2,4,7'}
+    else {
+        switch($category) {
+        'boxes' { $skit = '5' }
+        'caturday' { $skit = '6' }
+        'clothes' { $skit = '15' }
+        'dream' { $skit = '9' }
+        'funny' { $skit = '3' }
+        'hats' { $skit = '1' }
+        'kittens' { $skit = '10' }
+        'sinks' { $skit = '14' }
+        'space' { $skit = '2' }
+        'sunglasses' { $skit = '4' }
+        'ties' { $skit = '7' }
+        }
+    }
+    $rest = "/images/search?size=small&mime_types=jpg,png,gif&format=json&has_breeds=false&order=RANDOM&page=0&limit=$limit&category_ids=$skit&api_key=$apikey"
     # Create a hashtable for the results
     $result = @{}
     #Headers for api call
