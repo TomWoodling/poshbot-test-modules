@@ -57,8 +57,6 @@ Add-Type @"
 
     $gwipe = $($birp.replace('&amp;','&'))
 
-    $runner = '1'
-
     try {
         if (!(Get-ADGroup -Identity $gwipe)) {}
         else {$runner = '1'}
