@@ -57,10 +57,22 @@ Add-Type @"
 
     $gwipe = $($birp.replace('&amp;','&'))
 
-    $go = Get-ADGroup -Identity $gwipe
+    $runner = '1'
 
+    try {$go = Get-ADGroup -Identity $gwipe -ErrorAction Stop}
+    catch {
+        $runner = '2'
+        $cloo = Get-ADGroup -Filter * -Properties name,samaccountname | where name -Match $gwipe | select -ExpandProperty name
+        if($cloo.Count -ge 1) {
+            $clee = [system.string]::join("; ", $cloo)
+            $clib = ", you could try $clee"
+            }
+        else {
+            $clib = " :cold_sweat:"
+            }
+        }
 
-    try {
+    if ($runner -eq '1'){
         $gwurp = "Get-ADGroupMember -Identity `"$gwipe`" -Recursive | select name,samaccountname" 
         $gwurp | Out-File "$path\$title" -Force
         $gwoops = Invoke-Expression -Command "$path$title"
@@ -70,12 +82,13 @@ Add-Type @"
         $result.output = "Request for $gwipe processed - results sent as a DM :bowtie:"
         # Set a successful result
         $result.success = $true
+        Remove-Item -Force -Path "$path$title"
         }
-    catch {
-        $result.output = "Group $gwipe does not exist :cold_sweat:"        
+    else {
+        $result.output = "Group $gwipe does not exist$clib"        
         # Set a failed result
         $result.success = $false
         }
     return $result.output
-    Remove-Item -Force -Path "$path$title"
+
 }
