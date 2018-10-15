@@ -57,7 +57,7 @@ Add-Type @"
 
     $gwipe = $($birp.replace('&amp;','&'))
 
-    Get-ADGroup -Identity $gwipe
+    $go = Get-ADGroup -Identity $gwipe
 
 
     try {

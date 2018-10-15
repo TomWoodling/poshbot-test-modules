@@ -57,7 +57,7 @@ $birp = noquotez -bloop $group
 
 $gwipe = $($birp.replace('&amp;','&'))
 
-Get-ADGroup -Identity $gwipe
+$go = Get-ADGroup -Identity $gwipe
 
 try {
     # Use ErrorAction Stop to make sure we can catch any errors
