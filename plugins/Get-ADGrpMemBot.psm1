@@ -57,9 +57,8 @@ Add-Type @"
 
     $gwipe = $($birp.replace('&amp;','&'))
 
-    try {$go = Get-ADGroup -Identity $gwipe}
-    catch {write-error "this is an error"}
-
+    $go = Get-ADGroup -Identity $gwipe
+    
 
     try {
         $gwurp = "Get-ADGroupMember -Identity `"$gwipe`" -Recursive | select name,samaccountname" 
