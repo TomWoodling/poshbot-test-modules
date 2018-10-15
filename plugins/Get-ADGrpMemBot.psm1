@@ -59,7 +59,10 @@ Add-Type @"
 
     $runner = '1'
 
-    try {$go = Get-ADGroup -Identity $gwipe -ErrorAction Stop}
+    try {
+        if (!(Get-ADGroup -Identity $gwipe)) {}
+        else {$runner = '1'}
+        }
     catch {
         $runner = '2'
         $cloo = Get-ADGroup -Filter * -Properties name,samaccountname | where name -Match $gwipe | select -ExpandProperty name
