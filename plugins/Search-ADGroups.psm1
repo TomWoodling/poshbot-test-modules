@@ -55,7 +55,7 @@ Add-Type @"
 
     $gwipe = $($birp.replace('&amp;','&'))
 
-    $cloo = Get-ADGroup -Filter {name -like "*$gwipe*"} | select name, objectclass
+    $cloo = Get-ADObject -Filter {name -like "*$gwipe*"} | select name, objectclass
 
     $outle = "$($mitle.replace('&amp;','-')).csv"
     $cloo | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
