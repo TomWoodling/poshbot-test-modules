@@ -47,6 +47,7 @@ Add-Type @"
     #Get details for snippet
     $path="$env:BOTROOT\csv\"
     $mitle = $object.Replace(' ','_')
+    $title = "$($mitle.replace('&amp;','-')).ps1"
 
     # Create a hashtable for the results
     $result = @{}
@@ -55,14 +56,24 @@ Add-Type @"
 
     $gwipe = $($birp.replace('&amp;','&'))
 
-    $cloo = Get-ADObject -Filter {name -like "*$gwipe*"} | select name, objectclass
+    try {
+        $gwurp = "Get-ADGroup -Filter {name -like `"*$gwipe*`"} | select -expandproperty name"
+        $gwurp | Out-File "$path\$title" -Force
+        $gwoops = Invoke-Expression -Command "$path$title"
+        $outle = "$($mitle.replace('&amp;','-')).csv"
+        $gwoops | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
+        New-PoshBotFileUpload -Path "$path\$outle" -Title $outle -DM
+        $result.output = "Request for $gwipe processed - results sent as a DM :bowtie:"
+        # Set a successful result
+        $result.success = $true
+        }
+    catch {
+        $result.output = "Group $gwipe does not exist :cold_sweat:"        
+        # Set a failed result
+        $result.success = $false
+        }
 
-    $outle = "$($mitle.replace('&amp;','-')).csv"
-    $cloo | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
-    New-PoshBotFileUpload -Path "$path\$outle" -Title $outle -DM
 
-    $result.output = "Results sent as a DM :bowtie:"
-    $result.success = $true
 
     return $result.output
     }
