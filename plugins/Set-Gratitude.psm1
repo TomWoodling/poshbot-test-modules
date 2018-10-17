@@ -16,7 +16,7 @@ function Set-Gratitude {
     )]
     Param
     (
-        $bot
+        $bot = 'a'
     )
 
     $phrases = (

@@ -57,11 +57,11 @@ Add-Type @"
     $gwipe = $($birp.replace('&amp;','&'))
 
     try {
-        $gwurp = "Get-ADGroup -Filter {name -like `"*$gwipe*`"} | select -expandproperty name"
+        $gwurp = "Get-ADGroup -Filter {name -like `"*$gwipe*`"} | select name"
         $gwurp | Out-File "$path\$title" -Force
         $gwoops = Invoke-Expression -Command "$path$title"
-        $outle = "$($mitle.replace('&amp;','-')).txt"
-        $gwoops | Out-File "$path\$outle" -Force
+        $outle = "$($mitle.replace('&amp;','-')).csv"
+        $gwoops | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
         New-PoshBotFileUpload -Path "$path\$outle" -Title $outle -DM
         $result.output = "Request for $gwipe processed - results sent as a DM :bowtie:"
         # Set a successful result
