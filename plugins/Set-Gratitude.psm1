@@ -34,13 +34,15 @@ function Set-Gratitude {
         )
 
     $punc = (
-        "",
+        " ",
         "!",
         ".",
-        "!!"
+        "!!",
+        " - ",
+        ", "
         )
 
-    $emoji = ("", "", ":muscle:", ":smile:", ":+1:", ":ok_hand:", ":punch:",
+    $emoji = (" ", " ", ":muscle:", ":smile:", ":+1:", ":ok_hand:", ":punch:",
     ":bowtie:", ":smiley:", ":joy_cat:", ":heart:", ":robot_face:",
     ":heartbeat:", ":sparkles:", ":star:", ":star2:", ":smirk:",
     ":grinning:", ":smiley_cat:", ":sunflower:", ":tulip:",
