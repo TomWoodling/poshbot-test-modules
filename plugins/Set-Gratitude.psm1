@@ -11,12 +11,12 @@ function Set-Gratitude {
     [CmdletBinding()]
     [PoshBot.BotCommand(
         CommandName = 'Set-Gratitude',
-        Aliases = ('thanks','thx','thank-you','cheers'),
+        Aliases = ('thanks','thx','cheers'),
         Permissions = 'read'
     )]
     Param
     (
-        $bot = 'a'
+        $bot
     )
 
     $phrases = (
