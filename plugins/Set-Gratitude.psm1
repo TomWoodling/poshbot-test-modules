@@ -12,11 +12,12 @@ function Set-Gratitude {
         Command = $false,
         CommandName = 'Set-Gratitude',
         TriggerType = 'regex',
-        Regex = "($env:BOTNAME)?(thx|thanks|thank\s+you)\s?($env:BOTNAME)?"
+        Regex = "(thx|thanks|thank\s+you)\s?"
     )]
     [cmdletbinding()]
     Param
     (
+        $bot,
         [parameter(ValueFromRemainingArguments = $true)]
         [object[]]$Arguments
     )
