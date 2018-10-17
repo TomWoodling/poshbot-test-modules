@@ -8,16 +8,19 @@ function Set-Gratitude {
         Set-Gratitude
     #>
     
-    [CmdletBinding()]
     [PoshBot.BotCommand(
+        Command = $false,
         CommandName = 'Set-Gratitude',
-        Aliases = ('thanks','thx','cheers'),
-        Permissions = 'read'
+        TriggerType = 'regex',
+        Regex = "($env:BOTNAME)?(thx|thanks|thank\s+you)\s?($env:BOTNAME)?"
     )]
+    [cmdletbinding()]
     Param
     (
-        $bot
+        [parameter(ValueFromRemainingArguments = $true)]
+        [object[]]$Arguments
     )
+
 
     $phrases = (
         "You're welcome",
