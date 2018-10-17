@@ -82,7 +82,7 @@
                    'Enable-ScheduledCommand', 'Disable-ScheduledCommand', 'Update-Plugin', 'Get-CommandStatus',
                    'Approve-PendingCommand', 'Deny-PendingCommand', 'Get-PendingCommand', 'Get-CatPic', 'Get-Greeting',
                    'Get-PicDesc', 'Get-ADGrpMemBot', 'Get-ADDirectRepsBot', 'Get-ADGroupsForUserBot', 'Get-ADNestedGroupsBot',
-                   'Search-ADGroups'
+                   'Search-ADGroups','Set-Gratitude'
     
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport = @()
