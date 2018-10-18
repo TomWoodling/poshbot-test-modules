@@ -7,7 +7,7 @@ function Get-CatBomb {
     )]
     Param
     (
-        $Bot = 'a',
+        $Bot,
         [Parameter(Position=0)]
         [ValidateSet('boxes','caturday','clothes','dream','funny','hats','kittens','sinks','space','sunglasses','ties','all')]
 	    [string]$category = 'all'
@@ -17,7 +17,10 @@ function Get-CatBomb {
     $apikey = $env:THE_CAT_API_KEY
     $baseurl = 'https://api.thecatapi.com/v1'
     $limit = 5
-    if ($category -eq 'all') {$skit='5,6,15,9,3,1,10,14,2,4,7'}
+    if ($category -eq 'all') {
+        $skot=(5,6,15,9,3,1,10,14,2,4,7)
+        $skit = $skot | Get-Random
+        }
     else {
         switch($category) {
         'boxes' { $skit = '5' }
