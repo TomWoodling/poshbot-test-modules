@@ -13,7 +13,7 @@ function Set-Gratitude {
         CommandName = 'Set-Gratitude',
         TriggerType = 'regex',
         #Regex replaces placeholder below during docker build
-        Regex = "%"
+        Regex = """%""
     )]
     [cmdletbinding()]
     Param
