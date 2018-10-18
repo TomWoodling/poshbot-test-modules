@@ -18,7 +18,7 @@ function Get-CatBomb {
     $baseurl = 'https://api.thecatapi.com/v1'
     $limit = 5
     if ($category -eq 'all') {
-        $skot=(5,6,15,9,3,1,10,14,2,4,7)
+        $skot=('5','6','15','9','3','1','10','14','2','4','7')
         $skit = $skot | Get-Random
         }
     else {
