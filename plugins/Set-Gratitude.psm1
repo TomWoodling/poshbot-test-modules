@@ -3,7 +3,7 @@ function Set-Gratitude {
     .Synopsis
         Bot graciously accepts your thanks
     .DESCRIPTION
-        Bot graciously accepts your thanks
+        Bot graciously accepts your thanks - must be used with command to replace placeholder with correct regex (including bot name) in dockerfile
     .EXAMPLE
         Set-Gratitude
     #>
@@ -12,7 +12,8 @@ function Set-Gratitude {
         Command = $false,
         CommandName = 'Set-Gratitude',
         TriggerType = 'regex',
-        Regex = "(thx|thanks|thank\s+you)\s?"
+        #Regex replaces placeholder below during docker build
+        %
     )]
     [cmdletbinding()]
     Param
