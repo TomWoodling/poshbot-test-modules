@@ -291,5 +291,5 @@ function New-RegexPlug {
         )
     $woop = (gci "C:\Program Files\WindowsPowerShell\Modules\PoshBot").name
     $boop = (irm -Uri "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/Regex/$plugname.regex").replace('$env:BOTNAME',"$env:BOTNAME")
-    (irm -Uri 'https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1').replace('%',$boop) | Out-File "C:\Program Files\WindowsPowerShell\Modules\PoshBot\$woop\Plugins\Builtin\Public\$plugname.ps1" -Force
+    (irm -Uri "https://raw.githubusercontent.com/TomWoodling/poshbot-test-modules/master/plugins/$plugname.psm1").replace('%',$boop) | Out-File "C:\Program Files\WindowsPowerShell\Modules\PoshBot\$woop\Plugins\Builtin\Public\$plugname.ps1" -Force
 }
