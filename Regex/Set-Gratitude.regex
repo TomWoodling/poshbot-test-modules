@@ -1,1 +1,1 @@
-($env:BOTNAME)\s?(thx|thanks|thank\s+you)?
+^(thx|thanks|thank\s+you)+\s($env:BOTNAME)?
