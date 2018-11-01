@@ -61,6 +61,7 @@ Add-Type @"
     Write-Output $birp
     $gwurp = "Get-ADGroup -Filter {name -like `'*$gwipe*`'} | select name"
     write-output $gwurp
+    Invoke-Expression -Command $gwurp
     
 
 <#
