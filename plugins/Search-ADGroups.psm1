@@ -56,11 +56,14 @@ Add-Type @"
 
     $gwipe = $($birp.replace('&amp;','&'))
 
+    Write-Output $object
     Write-Output $gwipe
     Write-Output $birp
     $gwurp = "Get-ADGroup -Filter {name -like `'*$gwipe*`'} | select name"
     write-output $gwurp
+    
 
+<#
     try {
         $gwurp = "Get-ADGroup -Filter {name -like `'*$gwipe*`'} | select name"
         $gwurp | Out-File "$path\$title" -Force
@@ -78,7 +81,7 @@ Add-Type @"
         $result.success = $false
         }
 
+#>
 
-
-    return $result.output 
+    #return $result.output 
     }
