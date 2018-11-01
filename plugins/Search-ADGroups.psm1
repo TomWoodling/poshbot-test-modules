@@ -60,7 +60,7 @@ Add-Type @"
     Write-Output $birp
     $gwurp = "Get-ADGroup -Filter {name -like `"*$gwipe*`"} | select name"
     write-output $gwurp
-
+<#
     try {
         $gwurp = "Get-ADGroup -Filter {name -like `"*$gwipe*`"} | select name"
         $gwurp | Out-File "$path\$title" -Force
@@ -80,5 +80,5 @@ Add-Type @"
 
 
 
-    return $result.output
+    return $result.output #>
     }
