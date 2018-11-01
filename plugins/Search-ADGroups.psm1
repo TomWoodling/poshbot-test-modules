@@ -56,19 +56,11 @@ Add-Type @"
 
     $gwipe = $($birp.replace('&amp;','&'))
 
-    Write-Output $object
-    Write-Output $gwipe
-    Write-Output $birp
-    $gwurp = "Get-ADGroup -Filter {name -like `'*$gwipe*`'} | select name"
-    write-output $gwurp
-    Invoke-Expression -Command $gwurp
     
 
-<#
     try {
         $gwurp = "Get-ADGroup -Filter {name -like `'*$gwipe*`'} | select name"
-        $gwurp | Out-File "$path\$title" -Force
-        $gwoops = Invoke-Expression -Command "$path$title"
+        $gwoops = Invoke-Expression -Command $gwurp
         $outle = "$($mitle.replace('&amp;','-')).csv"
         $gwoops | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
         New-PoshBotFileUpload -Path "$path\$outle" -Title $outle -DM
@@ -82,7 +74,7 @@ Add-Type @"
         $result.success = $false
         }
 
-#>
 
-    #return $result.output 
+
+    return $result.output 
     }
