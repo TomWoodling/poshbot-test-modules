@@ -61,9 +61,8 @@ Add-Type @"
     
 
     try {
-        $gwurp = "Get-ADGroupMember -Identity `"$gwipe`" -Recursive | select name,samaccountname" 
-        $gwurp | Out-File "$path\$title" -Force
-        $gwoops = Invoke-Expression -Command "$path$title"
+        $gwurp = "Get-ADGroupMember -Identity `"$gwipe`" -Recursive | select name,samaccountname"
+        $gwoops = Invoke-Expression -Command $gwurp
         $outle = "$($mitle.replace('&amp;','-')).csv"
         $gwoops | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
         New-PoshBotFileUpload -Path "$path\$outle" -Title $outle -DM

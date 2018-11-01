@@ -61,9 +61,8 @@ $go = Get-ADGroup -Identity $gwipe
 
 try {
     # Use ErrorAction Stop to make sure we can catch any errors
-    $gurps = "Get-ADNestedGroups -GroupName `"$gwipe`" -ErrorAction stop | select name"
-    $gurps | Out-File "$path\$title" -Force
-    $gwoops = Invoke-Expression -Command "$path$title"
+    $gurps = "Get-ADNestedGroups -GroupName `'$gwipe`' -ErrorAction stop | select name"
+    $gwoops = Invoke-Expression -Command $gurps
     $outle = "$($mitle.replace('&amp;','-')).csv"
     $gwoops | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
     New-PoshBotFileUpload -Path "$path\$outle" -Title $outle -DM
