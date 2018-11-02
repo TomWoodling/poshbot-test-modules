@@ -59,7 +59,7 @@ Add-Type @"
     
 
     try {
-        $gwurp = "Get-ADGroup -Filter {name -like `'*$gwipe*`'} | select name"
+        $gwurp = "Get-ADGroup -Filter {name -like `'*$gwipe*`'} -Properties description | select name,description"
         $gwoops = Invoke-Expression -Command $gwurp
         $outle = "$($mitle.replace('&amp;','-')).csv"
         $gwoops | Export-Csv -Path "$path\$outle" -Force -NoTypeInformation
