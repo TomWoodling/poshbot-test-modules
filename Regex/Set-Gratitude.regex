@@ -1,1 +1,1 @@
-^(thx|thanks|thank\s+you)+\s($env:BOTNAME)
+(?(?=^$env:BOTNAME)(woop\s(thx|thanks|thank\syou))|(^(thx|thanks|thank\syou)\s$env:BOTNAME))
